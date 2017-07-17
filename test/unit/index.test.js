@@ -78,7 +78,7 @@ describe('models/index', function () {
   })
   it('should throw an error due to score over the max', () => {
     var models = require('../../src/models');
-    models.Rating.create({ UserId:1, RestaurantId:1, score:7  })
+    return models.Rating.create({ UserId:1, RestaurantId:1, score:7  })
     .catch(err => {
       err.errors[0].message.should.equal('Validation max on score failed');
       err.errors[0].type.should.equal('Validation error');
@@ -86,10 +86,23 @@ describe('models/index', function () {
   });
   it('should throw an error due to score under the min', () => {
     var models = require('../../src/models');
-    models.Rating.create({ UserId:1, RestaurantId:1, score:-1  })
+    return models.Rating.create({ UserId:1, RestaurantId:1, score:-1  })
     .catch(err => {
       err.errors[0].message.should.equal('Validation min on score failed');
       err.errors[0].type.should.equal('Validation error');
+    })
+  });
+  it('should return users', () => {
+    var models = require('../../src/models');
+    return models.User.findById(1)
+    .then((user) => {
+      return user.getRestaurants();
+    })
+    .then((restos) => {
+      var resto = restos[0];
+      resto.Rating.score.should.equal(5);
+      resto.name.should.equal('Chez Nicolas');
+      
     })
   });
 });
