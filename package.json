@@ -1,0 +1,28 @@
+{
+  "name": "sqelize-test",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "test-unit-watch": "nodemon --ext js --watch ./ --exec 'npm run test-unit' --delay 1 ",
+    "test": "npm run test-unit && npm run test-integration",
+    "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
+    "test-integration": "cross-env NODE_ENV=test"
+  },
+  "dependencies": {
+    "pg": "^6.4.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.3.2",
+    "sequelize-cli": "^2.7.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "chai": "^4.1.0",
+    "cross-env": "^5.0.1",
+    "expect.js": "^0.3.1",
+    "mocha": "^3.4.2",
+    "nodemon": "^1.11.0",
+    "sqlite3": "^3.1.8",
+    "supertest": "^3.0.0"
+  }
+}
